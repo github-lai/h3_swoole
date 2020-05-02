@@ -1,14 +1,11 @@
-#辅助工具
-/support/*
-
 #日志文件
-/log/*
+#/log/*
 
 #临时文件
-/tmp/*
+#/tmp/*
 
 /vendor/*
 
 #其他文件
-/*.txt
+*.txt
 
