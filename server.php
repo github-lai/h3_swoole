@@ -31,9 +31,9 @@ class Server {
 			$response->end();
 			return;
 		}else{
-			//rsp = Lib\Rsp
+			//Note : rsp is instance of Lib\Rsp
 			$rsp = Lib\Router::dispatch($request, $response);//$request跟着走才能获取$_GET和$_POST数据
-			//Lib\Helper::info($request->server['path_info'].'\r\n'.var_export($rsp,true));
+
 			$response->status($rsp->status, 200);
 			foreach($rsp->head as $key=>$val){
 				$response->header($key, $val, true);
@@ -77,20 +77,20 @@ class Server {
 	// 每次连接时(相当于每个浏览器第一次打开页面时)执行一次, reload 时连接不会断开, 也就不会再次触发该事件
 	function onConnect(\Swoole\Http\Server $server, int $fd, int $reactorId) {
 		echo 'Connect: ' . PHP_EOL . PHP_EOL;
-		echo '    Worker ID: '. $server->worker_id . PHP_EOL . PHP_EOL;
-		echo '    fd: ' . $fd . ' , reactorId: ' . $reactorId . PHP_EOL . PHP_EOL;
+		echo 'Worker ID: '. $server->worker_id . PHP_EOL . PHP_EOL;
+		echo 'fd: ' . $fd . ' , reactorId: ' . $reactorId . PHP_EOL . PHP_EOL;
 	}
 
 	// 每个浏览器连接关闭时执行一次, reload 时连接不会断开, 也就不会触发该事件
 	function onClose(\Swoole\Http\Server $server, int $fd, int $reactorId) {
 		echo 'Close: ' . PHP_EOL . PHP_EOL;
-		echo '    fd: '. $fd .' , reactorId: ' . $reactorId . PHP_EOL . PHP_EOL;
+		echo 'fd: '. $fd .' , reactorId: ' . $reactorId . PHP_EOL . PHP_EOL;
 	}
 
 	// 每个 Worker 进程退出或重启时执行一次
 	function onWorkerStop(\Swoole\Http\Server $server, int $workerId) {
 		echo 'WorkerStop' . PHP_EOL . PHP_EOL;
-		echo '    Worker ID:' . $workerId . PHP_EOL . PHP_EOL;
+		echo 'Worker ID:' . $workerId . PHP_EOL . PHP_EOL;
 	}
 
 	// 服务器关闭时执行一次
