@@ -1,0 +1,80 @@
+
+<container id="header">
+		<title>首页</title>
+		<style type="text/css">
+
+		</style>
+</container>
+
+<container id="body">
+	<div class="row">
+		<div class="col-sm-12" style="">
+			<div class="panel panel-default">
+			  <div class="panel-body text-center" style="background:#006699;color:white;padding:50px;">
+				<h2>{$say} H3 framework</h2>
+			  </div>
+			</div>
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-sm-4">
+			<div class="panel panel-default">
+			  <div class="panel-heading" >高效开发</div>
+			  <div class="panel-body text-center" style="padding:30px;font-size:18px;">
+				网络应用高效率开发
+			  </div>
+			</div>
+		</div>
+		<div class="col-sm-4">
+			<div class="panel panel-default">
+			  <div class="panel-heading" >易于维护</div>
+			  <div class="panel-body text-center" style="padding:30px;font-size:18px;">
+				代码简洁优雅 可读性强
+			  </div>
+			</div>
+		</div>
+		<div class="col-sm-4">
+			<div class="panel panel-default">
+			  <div class="panel-heading" >性能</div>
+			  <div class="panel-body text-center" style="padding:30px;font-size:18px;">
+				接近原生PHP的执行性能
+			  </div>
+			</div>
+		</div>
+
+
+	</div>
+
+	<div class="row">
+		<div class="col-sm-12">
+			<div class="panel panel-default">
+			  <div class="panel-heading" >Demo实例</div>
+			  <div class="panel-body" style="">
+			  请先配置好usr/config.ini的数据库连接信息，然后执行以下sql语句创建必要的实例数据表。
+<div>
+<br/>CREATE DATABASE `test` /*!40100 DEFAULT CHARACTER SET utf8 */;<br/>
+use `test`;<br/>
+CREATE TABLE `user` (<br/>
+  `iid` int(11) NOT NULL AUTO_INCREMENT,<br/>
+  `username` varchar(45) DEFAULT NULL,<br/>
+  `userpass` varchar(45) DEFAULT NULL,<br/>
+  PRIMARY KEY (`iid`)<br/>
+) ENGINE=MyISAM AUTO_INCREMENT=12 DEFAULT CHARSET=utf8;<br/><br/>
+</div>
+			  </div>
+			</div>
+		</div>
+	</div>
+
+	<hr/>
+	CopyRight @ Helper 2019
+</container>
+
+<container id="footer">
+	<script type="text/javascript">
+		$(document).ready(function(){
+			setOn(0);
+		});
+	</script>
+</container>
+

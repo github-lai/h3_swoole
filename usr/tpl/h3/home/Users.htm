@@ -1,0 +1,108 @@
+
+<container id="header">
+
+		<title>用户列表</title>
+		<style type="text/css">
+
+		</style>
+</container>
+
+
+<container id=" body">
+	<div class="row">
+		<div class="col-sm-12" style="">
+			<div class="panel panel-default">
+			  <div class="panel-heading">用户列表 <a href="javascript:void(0)" onclick="addnew()">添加</a></div>
+			  <div class="panel-body " style="">
+
+			  <table class='table'>
+			  <tr>
+				  <th>编号</th>
+				  <th>用户名</th>
+				  <th>用户名长度</th>
+				  <th>用户名截取</th>
+				  <th>用户密码</th>
+				  <th>操作</th>
+			  </tr>
+			  {foreach($list as $item)}
+			  <tr>
+				<td>{$item->iid()}</td>
+				<td>{$item->username()} </td>
+				<td>{org.strlen($item->username())} </td>
+				<td>{helper.cubstr($item->username(),0,3)} </td>
+				<td><input type='text' id='up{$item->iid()}' value='{$item->userpass()}'></td>
+				<td>
+				<a href='javascript:void(0)' onclick='modify({$item->iid()})'>修改</a>&nbsp;&nbsp;&nbsp;&nbsp;
+				<a href='javascript:void(0)' onclick='remove({$item->iid()})'>删除</a></td>
+			  </tr>
+			  {end}
+			  </table>
+
+			  <ul class="pagination">
+				<li><a href="home/users?page=1">首页</a></li>
+				<li><a href="home/users?page={$pager->prev}">上一页</a></li>
+				<li><a href="home/users?page={$pager->next}">下一页</a></li>
+				<li><a href="home/users?page={$pager->totalpages}">尾页</a></li>
+				<li>
+					<select class="form-control" style="width:80px;float:left;border-left:none;border-radius:0;" onchange="location.href='home/users?page='+this.value">
+						{for($i=1;$i <=$pager->totalpages;$i++)}
+						<option value="{$i}" {$i==$pager->cur?'selected':''}>第{$i}页</a>
+						{end}
+					</select>
+				</li>
+				<li><span> 共 {$pager->totalpages} 页 / {$pager->total}条记录 </span></li>
+			  </ul>
+				
+			  </div>
+			</div>
+		</div>
+	</div>
+
+	<hr/>
+	CopyRight @ Helper 2019
+
+</container>
+
+<!--footer-->
+<container id="footer">
+	<script type="text/javascript">
+		function addnew()
+		{
+			$.post("home/adduser/",null,function(data){
+				if(data > 0)
+				{
+					location.reload();
+				}else{
+					layer.alert("添加失败");
+				}
+			});
+		}
+		function modify(id)
+		{
+			var pass = $("#up"+id).val();
+			$.post("home/modify/"+id,{ pass:pass},function(data){
+				if(data == "1")
+				{
+					layer.alert("修改成功");
+				}else{
+					layer.alert("修改失败");
+				}
+			});
+		}
+
+		function remove(id)
+		{
+			layer.confirm('确定要删除该记录吗？', {
+			  btn: ['确定','取消'] //按钮
+			}, function(){
+				location.href = "home/remove/"+id;
+			}, function(){
+			  layer.close();
+			});
+		}
+
+		$(document).ready(function(){
+			setOn(1);
+		});
+	</script>
+</container>

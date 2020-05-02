@@ -1,0 +1,27 @@
+{
+    "name": "h3/h3_swoole",
+    "description": "An highly effecient php mvc framework with swoole extension",
+    "type": "project",
+    "license": "MIT",
+    "repositories": {
+	"packagist": {
+	    "type": "composer",
+	    "url": "https://packagist.phpcomposer.com"
+        }
+    },
+    "require": {
+        "php": ">=7.1",
+        "h3/framework_swoole": "dev-master"
+    },
+    "autoload": {
+    	"files":["vendor/h3/framework_swoole/init.php"],
+	"psr-4":{
+	   "Ctrl\\" :"usr/ctrl",
+	   "Ctrl\\H3\\" :"usr/ctrl/h3",
+	   "Ctrl\\Admin\\" :"usr/ctrl/admin",
+	   "Model\\" :"usr/model",
+	   "Auth\\":"usr/auth"
+	}
+    }
+    
+}

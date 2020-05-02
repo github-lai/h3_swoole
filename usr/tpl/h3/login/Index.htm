@@ -1,0 +1,72 @@
+
+<!--header-->
+<container id="header">
+	<title>登录</title>
+	<style type="text/css">
+
+	</style>
+</container>
+
+<!--main-->
+<container id="body">
+
+
+	<div class="row" style="">
+		<div class="col-sm-4 col-sm-offset-4" style="padding:30px;background:#fff;line-height:30px;border:solid 1px #ccc;">
+
+		<form onsubmit="return false">
+			<table class="logtab" cellpadding="0" cellspacing="15" align="center" style="">
+				<tr>
+					<td>用户名：<br/><input type="text" class="form-control" id="username" value="admin" size="20"></td>
+				</tr>
+				<tr>
+					<td>密 码：<br/><input type="text"  class="form-control"  id="userpass" value="admin" size="20"></td>
+				</tr>
+				<tr>
+					<td>验证码：<br/>
+					<input type="text" id="vcode"  class="form-control" style="width:80px;float:left;" value="" size="6">
+					<img src="base/vcode" align="middle" style="float:left;margin-left:10px;" onclick="this.src='base/vcode?a='+new Date().getTime()">
+					</td>
+				</tr>
+				<tr>
+					<td><a href="javascript:void(0)" onclick="return submit()" class="btn btn-primary" style="margin-top:25px;">登录</a></td>
+				</tr>
+			</table>
+		</form>
+
+		</div>
+	</div>
+
+	<hr/>
+	CopyRight @ Helper 2019
+
+</container>
+
+<!--footer-->
+<container id="footer">
+
+	<script type="text/javascript">
+		function submit()
+		{
+			var username = $("#username").val();
+			var userpass = $("#userpass").val();
+			var vcode = $("#vcode").val();
+			$.post("login/submit",{username:username,userpass:userpass,vcode:vcode},function(data){
+				if(data == "1"){
+					layer.alert("登录成功，即将跳转");
+
+					setTimeout(function(){
+						location.href = "@admin/welcome";
+						},2000);
+				}else{
+					layer.alert("登录失败，"+data);
+				}
+			});
+			return false;
+		}
+		$(document).ready(function(){
+
+		});
+	</script>
+
+</container>
