@@ -47,9 +47,6 @@ class Server {
 		if($data == 'reload'){
 			$serv->reload();//当接收到客户端消息时更新代码，下次再执行work代码时变（onWorkerStart），本次执行还是不变
 		}
-		if($data == 'shutdown'){
-			$serv->shutdown();
-		}
         echo "Get Message From Client {$fd}:{$data}\n";
     }
 
@@ -59,8 +56,33 @@ class Server {
 	// 每个 Worker 进程启动或重启时都会执行
 	function onWorkerStart(\Swoole\Http\Server $server, int $workerId) {
 		require 'vendor/autoload.php';
-		echo 'WorkerStart: ' . PHP_EOL . PHP_EOL;
-		echo 'WorkerID: ' . $workerId . PHP_EOL . PHP_EOL;
+
+		date_default_timezone_set('Asia/Shanghai');
+		ini_set("short_open_tag","On");
+		define("ROOTDIR",__DIR__.'/');
+		Lib\Config::init(ROOTDIR."usr/config.ini");
+		if(Lib\Config::has('auth')){
+			$msg = 'init alert : config.ini items are not allow named like "auth", change it to another';
+			$server->response->end($msg);
+		}
+		Lib\Config::init(ROOTDIR."usr/auth.ini");
+		register_shutdown_function('onError',$server);
+
+		echo 'WorkerStart:'.PHP_EOL;
+		echo 'WorkerID:'.$workerId.PHP_EOL;
+	}
+
+	function onError($server)
+	{
+		$_error = error_get_last();
+		if ($_error && in_array($_error['type'], array(1, 4, 16, 64, 256, 4096, E_ALL))) 
+		{
+			$msg = '<font color=red>Error 500</font></br>';
+			$msg .= 'message : ' . $_error['message'] . '</br>';
+			$msg .=  'file : ' . $_error['file'] . '</br>';
+			$msg .=  'line : ' . $_error['line'] . '</br>';
+			$server->response->end($msg);
+		}
 	}
 
 	// 服务器启动时执行一次

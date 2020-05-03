@@ -14,7 +14,7 @@
         "h3/framework_swoole": "dev-master"
     },
     "autoload": {
-    	"files":["vendor/h3/framework_swoole/init.php"],
+    	"files":[],
 	"psr-4":{
 	   "Ctrl\\" :"usr/ctrl",
 	   "Ctrl\\H3\\" :"usr/ctrl/h3",
